@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>beb571ab-414b-4530-b6ad-57c4fbcb9a39</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>DotaGSI2.py</StartupFile>
+    <StartupFile>DotaGSI.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

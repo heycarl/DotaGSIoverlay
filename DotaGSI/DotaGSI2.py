@@ -47,7 +47,7 @@ class MyServer(HTTPServer):
     payload = None
 
 
-server = MyServer(('192.168.1.219', 3000), MyRequestHandler)
+server = MyServer(('localhost', 3000), MyRequestHandler)
 
 try:
     server.serve_forever()
