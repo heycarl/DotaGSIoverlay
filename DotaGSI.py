@@ -1,11 +1,8 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from json import loads, dumps
-
-
+import transfer
 
 class MyRequestHandler(BaseHTTPRequestHandler):
-    """DOTA's requests handler."""
 
     def do_POST(self):
         """Receive DOTA2's informations."""
@@ -19,35 +16,14 @@ class MyRequestHandler(BaseHTTPRequestHandler):
     # Parsing and actions
     def parse_payload(self, payload):
         """Search payload."""
-        parsed_string = json.loads(payload)
-        print(getParametrFromPath("hero/team3/player5", parsed_string))
+        transfer.json_data = json.loads(payload)
 
     def log_message(self, format, *args):
         """Prevents requests from printing into the console."""
         return
-    def uploadData():
-        print(getParametrFromPath("hero/team3/player5", parsed_string))
 
 
-def getParametrFromPath(path, dict):
-    path = path.split("/")
-    output = dict
-    for path_item in path:
-        try:
-            output = output[path_item]
-        except:
-            output = "N/A"
-            pass
-    return str(output)
-
-
-class MyServer(HTTPServer):
-    """Server storing DOTA's information."""
-
-    payload = None
-
-
-server = MyServer(('192.168.1.219', 3000), MyRequestHandler)
+server = HTTPServer(('192.168.1.219', 3000), MyRequestHandler)
 
 try:
     server.serve_forever()
