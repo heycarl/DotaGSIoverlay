@@ -31,6 +31,20 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         """Search payload."""
         json_data = json.loads(payload)
         getplayerinfoforteam("name", json_data)
+        getplayerinfoforteam("kill_streak", json_data)
+        getplayerinfoforteam("gpm", json_data)
+        getplayerinfoforteam("xpm", json_data)
+        getplayerinfoforteam("wards_purchased", json_data)
+        getplayerinfoforteam("wards_placed", json_data)
+        getplayerinfoforteam("wards_destroyed", json_data)
+        getplayerinfoforteam("runes_activated", json_data)
+        getplayerinfoforteam("camps_stacked", json_data)
+        getheroinfoforteam("name", json_data)
+        getheroinfoforteam("level", json_data)
+        getheroinfoforteam("alive", json_data)
+        getheroinfoforteam("buyback_cost", json_data)
+        getheroinfoforteam("smoked", json_data)
+        getheroinfoforteam("selected_unit", json_data)
 
     def log_message(self, format, *args):
         """Prevents requests from printing into the console."""
@@ -50,9 +64,24 @@ def gpfp(path, dict):
 
 
 def getplayerinfoforteam(param, dict):
-    for team in dict["player"]:
-        for player in dict["player"][team]:
-            client.send_message("/"+str(param) + str(player)[6:7], dict["player"][team][player][str(param)])
+    try:
+        for team in dict["player"]:
+            for player in dict["player"][team]:
+                client.send_message("/"+str(param) + str(player)[-1:], dict["player"][team][player][str(param)])
+    except KeyError:
+        return
+
+
+def getheroinfoforteam(param, dict):
+    try:
+        for team in dict["hero"]:
+            for hero in dict["hero"][team]:
+                if param == "name":
+                    client.send_message("/" + "hero_name" + str(hero)[-1:], dict["hero"][team][hero][str(param)])
+                else:
+                    client.send_message("/" + str(param) + str(hero)[-1:], dict["hero"][team][hero][str(param)])
+    except KeyError:
+        return
 
 
 server = HTTPServer(('192.168.1.219', 3000), MyRequestHandler)
