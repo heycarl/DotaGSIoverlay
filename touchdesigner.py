@@ -1,4 +1,3 @@
-import transfer
 json_data = transfer.json_data
 
 def getParametrFromPath(path, dict):
